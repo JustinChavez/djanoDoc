@@ -13,7 +13,7 @@ pip install django
 Directory for HackerPack Dashboard
 
 ```
-cd poll/mysite/polls
+cd poll/mysite
 ```
 
 Runserver
