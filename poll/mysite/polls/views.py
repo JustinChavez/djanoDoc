@@ -8,6 +8,7 @@ from .models import Question
 from django.template import loader
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import ChoiceForm
+from .models import Choice
 
 
 #index request with render function. There is no longer a need to have a line to get
