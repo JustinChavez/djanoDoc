@@ -1,5 +1,5 @@
 # Create your views here
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.views import generic
@@ -7,8 +7,12 @@ from django.http import Http404
 from .models import Question
 from django.template import loader
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .forms import ChoiceForm
-from .models import Choice
+from .forms import ChoiceForm, UserForm
+from .models import Choice, UserProfile
+from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout
+from django.template import RequestContext
+
 
 
 #index request with render function. There is no longer a need to have a line to get
@@ -68,3 +72,73 @@ def dashboard(request):
     }
 
     return render(request, 'polls/main.html', context)
+
+def register(request):
+    form = UserForm(request.POST or None)
+    if form.is_valid():
+        user = form.save(commit=False)
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+       #adds the password and then save it
+        user.set_password(password)
+        user.save()
+        print ("testing")
+        #takes user and pass and see if it exists in database
+        user = authenticate(username=username, password=password)
+        #this is from above has return it
+        if user is not None:
+            #see if the account is not banned or disable or others things
+            if user.is_active:
+                #this is how you login in
+                login(request, user)
+                #redircts them to where you want them to go afeter they reigister
+               # return redirect('polls:index')
+                return HttpResponse("testing")
+    #this is puporse to redierct them to a blank form
+    #return render(request, self.template_name, {'form':form})
+                #return render_to_response('polls:login', {}, context)
+    return render_to_response('polls/register.html', {'form':form}, context_instance=
+                                      RequestContext(request))
+
+def logins(request):
+    print("0")
+    if request.method == 'POST':
+        print("1")
+        username =request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            print("2")
+            if user.is_active:
+                print("3")
+                login(request, user)
+                users = UserProfile.objects.filter(user=request.user)
+                return render(request, 'polls/index.html', {'users':users})
+
+            else:
+                print("4")
+                return render (request, 'polls/login.html', {'error_message': 'Your account has been disabed'})
+        else:
+            print("5")
+            return render(request, 'polls/login.html', {'error_message':'Invalid_login'})
+    return render(request, 'polls/login.html')
+
+
+
+# def register(request):
+# #TODO do we need request context? Abandon?
+#     # context = RequestContext(request)
+#
+#     # A boolean value for telling the template whether the registeatation was succesful
+#     #set to false initially code changes value to true when registratation succceds
+#     registered = False
+#
+# #if it's a Http POST, we're interested in processing form data
+#     if request.method == 'POST':
+#         #attempt to grab information from the raw information
+#         #not that we make use of bot USERform and UserPRofileForm
+#
+#     #if it's a Http POST we're interested in provessing form data
+#
+
