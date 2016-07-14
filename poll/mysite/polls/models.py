@@ -3,6 +3,8 @@ import datetime
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils import timezone
+from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -13,7 +15,10 @@ class Question(models.Model):
     def __str__(self):
         return self.question_text
     def was_published_recently(self):
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+        #fixes bug to make sure publications that will be  published in the future
+        #are not labeled as being published recently
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
 @python_2_unicode_compatible
 class Choice(models.Model):
@@ -22,3 +27,5 @@ class Choice(models.Model):
     votes = models.IntegerField(default=0)
     def __str__(self):
         return self.choice_text
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
