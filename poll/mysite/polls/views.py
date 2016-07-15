@@ -73,32 +73,32 @@ def dashboard(request):
 
     return render(request, 'polls/main.html', context)
 
-def register(request):
-    form = UserForm(request.POST or None)
-    if form.is_valid():
-        user = form.save(commit=False)
-        username = form.cleaned_data['username']
-        password = form.cleaned_data['password']
-       #adds the password and then save it
-        user.set_password(password)
-        user.save()
-        print ("testing")
-        #takes user and pass and see if it exists in database
-        user = authenticate(username=username, password=password)
-        #this is from above has return it
-        if user is not None:
-            #see if the account is not banned or disable or others things
-            if user.is_active:
-                #this is how you login in
-                login(request, user)
-                #redircts them to where you want them to go afeter they reigister
-               # return redirect('polls:index')
-                return HttpResponse("testing")
-    #this is puporse to redierct them to a blank form
-    #return render(request, self.template_name, {'form':form})
-                #return render_to_response('polls:login', {}, context)
-    return render_to_response('polls/register.html', {'form':form}, context_instance=
-                                      RequestContext(request))
+# def register(request):
+#     form = UserForm(request.POST or None)
+#     if form.is_valid():
+#         user = form.save(commit=False)
+#         username = form.cleaned_data['username']
+#         password = form.cleaned_data['password']
+#        #adds the password and then save it
+#         user.set_password(password)
+#         user.save()
+#         print ("testing")
+#         #takes user and pass and see if it exists in database
+#         user = authenticate(username=username, password=password)
+#         #this is from above has return it
+#         if user is not None:
+#             #see if the account is not banned or disable or others things
+#             if user.is_active:
+#                 #this is how you login in
+#                 login(request, user)
+#                 #redircts them to where you want them to go afeter they reigister
+#                # return redirect('polls:index')
+#                 return HttpResponse("testing")
+#     #this is puporse to redierct them to a blank form
+#     #return render(request, self.template_name, {'form':form})
+#                 #return render_to_response('polls:login', {}, context)
+#     return render_to_response('polls/register.html', {'form':form}, context_instance=
+#                                       RequestContext(request))
 
 def logins(request):
     print("0")
@@ -115,30 +115,37 @@ def logins(request):
                 login(request, user)
                 users = UserProfile.objects.filter(user=request.user)
                 return render(request, 'polls/index.html', {'users':users})
-
             else:
                 print("4")
                 return render (request, 'polls/login.html', {'error_message': 'Your account has been disabed'})
         else:
             print("5")
-            return render(request, 'polls/login.html', {'error_message':'Invalid_login'})
+            return render(request, 'polls/login.html', {'error_message':'Username or Password did not match'})
     return render(request, 'polls/login.html')
 
 
+def register(request):
+    form = UserForm(request.POST or None)
+    if form.is_valid():
+        user = form.save(commit=False)
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user.set_password(password)
+        user.save()
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            users = UserProfile.objects.filter(user=request.user)
+            return render(request, 'polls/index.html', {'users':users})
+    context = {
+            "form":form,
+    }
+    return render(request, 'polls/register.html', context)
 
-# def register(request):
-# #TODO do we need request context? Abandon?
-#     # context = RequestContext(request)
-#
-#     # A boolean value for telling the template whether the registeatation was succesful
-#     #set to false initially code changes value to true when registratation succceds
-#     registered = False
-#
-# #if it's a Http POST, we're interested in processing form data
-#     if request.method == 'POST':
-#         #attempt to grab information from the raw information
-#         #not that we make use of bot USERform and UserPRofileForm
-#
-#     #if it's a Http POST we're interested in provessing form data
-#
-
+def logout_user(request):
+    logout(request)
+    form = UserForm(request.POST or None)
+    context = {
+        "form":form,
+    }
+    return render(request, 'polls/index.html', context)

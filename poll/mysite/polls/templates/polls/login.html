@@ -1,14 +1,17 @@
+{% extends 'polls/main.html' %}
 <html>
     <head>
         <title>Login</title>
     </head>
 
     <body>
+        {% block content %}
+        {% if error_message %}
+            <p><strong>{{ error_message }}</strong></p>
+        {% endif %}
         <h1>Login</h1>
-
-        <form method="POST" action="">
-            {% csrf_token %}
-                Username: <br>
+        <form method="POST" action=""> {% csrf_token %}
+            Username: <br>
             <input type="text" name="username">
             <br>
             Password: <br>
@@ -16,5 +19,10 @@
             <br>
             <input type="submit" value="Submit">
         </form>
+        Need a account? <a href="{% url 'polls:register' %}"> Click here </a>to sign up
+        <br>
+        <a href="{% url 'polls:logout_user' %}">Logout</a>
+
+    {% endblock %}
     </body>
 </html>
