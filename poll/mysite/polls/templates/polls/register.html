@@ -1,9 +1,11 @@
+{% extends 'polls/main.html' %}
 <html>
     <head>
         <title>Register</title>
     </head>
 
     <body>
+        {% block content %}
         <h1>Register</h1>
 
         <form method="POST" action="">
@@ -16,6 +18,7 @@
             <br>
             <input type="submit" value="Submit">
         </form>
-
+        Already have an account? <a href="{% url 'polls:login' %}"> Click here </a>to log in
+        {% endblock %}
     </body>
 </html>
