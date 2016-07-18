@@ -1,1 +1,3 @@
-view
+venv
+*.pyc
+.env
