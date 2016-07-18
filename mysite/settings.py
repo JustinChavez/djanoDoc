@@ -78,10 +78,10 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres://hzdkwupxpzkxqr:LOuKV-C5TCMI1lPEJugSIHK7qd@ec2-54-243-204-57.compute-1.amazonaws.com:5432/dbcd9hoo0pq3hh.dbcd9hoo0pq3hh',
-        'USER': 'postgres://hzdkwupxpzkxqr:LOuKV-C5TCMI1lPEJugSIHK7qd@ec2-54-243-204-57.compute-1.amazonaws.com:5432/dbcd9hoo0pq3hh.hzdkwupxpzkxqr',
-        'PASSWORD': 'postgres://hzdkwupxpzkxqr:LOuKV-C5TCMI1lPEJugSIHK7qd@ec2-54-243-204-57.compute-1.amazonaws.com:5432/dbcd9hoo0pq3hh.LOuKV-C5TCMI1lPEJugSIHK7qd',
-        'HOST': 'postgres://hzdkwupxpzkxqr:LOuKV-C5TCMI1lPEJugSIHK7qd@ec2-54-243-204-57.compute-1.amazonaws.com:5432/dbcd9hoo0pq3hh.ec2-54-243-204-57.compute-1.amazonaws.com',
+        'NAME': 'hp',
+        'USER': 'jonathan',
+        'PASSWORD': '',
+        'HOST': 'localhost',
         'PORT': '',
     }
 }
@@ -123,5 +123,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
