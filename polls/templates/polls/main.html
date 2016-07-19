@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Title</title>
-    {% include 'polls/css.html' %}
+  {% load staticfiles %}
+  {% include 'polls/css.html' %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -17,7 +18,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="#">
-          <a href="#" class="navbar-left"><img src="../static/images/HackerPack.png" style="max-height: 45px"></a>
+          <a href="#" class="navbar-left"><img src="{% static 'images/HackerPack.png' %}" style="max-height: 45px"></a>
       </a>
     </div>
 
@@ -39,8 +40,24 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
 {% block content %}
 {% endblock %}
+
+<!--<div class="wrapper">-->
+  <!--<p>Your website content here.</p>-->
+  <!--<div class="push"></div>-->
+ <!--</div>-->
+ <!--<div class="footer">-->
+   <!--<p>Copyright (c) 2008</p>-->
+ <!--</div>-->
+
+
+<footer class="footer">
+  <div class="container">
+    <p class="text-muted">HackerPack Dashboard </p>
+  </div>
+</footer>
 
 </body>
 </html>
