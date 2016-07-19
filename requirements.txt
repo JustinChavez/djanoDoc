@@ -26,3 +26,4 @@ texttable==0.8.4
 virtualenv==15.0.2
 wcwidth==0.1.6
 websocket-client==0.37.0
+whitenoise==3.2
