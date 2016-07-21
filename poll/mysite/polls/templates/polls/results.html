@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+{% extends 'polls/main.html' %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-
+{% block content %}
 <h1>{{ question.question_text }}</h1>
 
 <ul>
@@ -15,6 +16,6 @@
 </ul>
 
 <a href="{% url 'polls:detail' question.id %}">Vote again?</a>
-
+{% endblock %}
 </body>
 </html>
