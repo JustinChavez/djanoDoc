@@ -51,13 +51,17 @@ def results(request, question_id):
         form = ChoiceForm(request.POST or None)
         if form.is_valid():
             save_it = form.save(commit=False)
+            # save_it.author = request.user
             save_it.save()
 
         response = "You're looking at the results of question %s."
-        return HttpResponse(response % question_id)
+        # return HttpResponse(response % question_id)
+        question = get_object_or_404(Question, pk=question_id)
+        return render(request, 'polls/results.html', {'question': question})
 
-        #question = get_object_or_404(Question, pk=question_id)
-        #return render(request, 'polls/results.html', {'question': question})
+        # return HttpResponseRedirect('/polls/results/')
+        # return render(request, 'polls/results.html')
+
     else:
         messages.error(request, 'ERROR: Need to login first')
         return HttpResponseRedirect('/polls/login/')
@@ -93,33 +97,6 @@ def dashboard(request):
 
     else:
         return render(request, 'polls/login.html', {'error_message': 'Need to login first'})
-
-# def register(request):
-#     form = UserForm(request.POST or None)
-#     if form.is_valid():
-#         user = form.save(commit=False)
-#         username = form.cleaned_data['username']
-#         password = form.cleaned_data['password']
-#        #adds the password and then save it
-#         user.set_password(password)
-#         user.save()
-#         print ("testing")
-#         #takes user and pass and see if it exists in database
-#         user = authenticate(username=username, password=password)
-#         #this is from above has return it
-#         if user is not None:
-#             #see if the account is not banned or disable or others things
-#             if user.is_active:
-#                 #this is how you login in
-#                 login(request, user)
-#                 #redircts them to where you want them to go afeter they reigister
-#                # return redirect('polls:index')
-#                 return HttpResponse("testing")
-#     #this is puporse to redierct them to a blank form
-#     #return render(request, self.template_name, {'form':form})
-#                 #return render_to_response('polls:login', {}, context)
-#     return render_to_response('polls/register.html', {'form':form}, context_instance=
-#                                       RequestContext(request))
 
 def logins(request):
     print("0")
