@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 venv
 *.pyc
 .env
+=======
+.idea/workspace.xml
+view
+/db.sqlite3
+>>>>>>> 7f12450356e72c12b20fd3fa81dd97ade6d2de73

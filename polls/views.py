@@ -1,4 +1,5 @@
 # Create your views here
+
 from django.shortcuts import get_object_or_404, render, redirect, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
@@ -14,11 +15,14 @@ from django.contrib.auth import logout
 from django.template import RequestContext
 from django.contrib import messages
 
+
 # Justin 2016/07/15:
 # Now using message framework to relay messages to the user. Check messages.error lines to see it in action
 
+
 #index request with render function. There is no longer a need to have a line to get
 #the template. The second argument of render handles that for us.
+
 def index(request):
     if request.user.is_authenticated():
         latest_question_list = Question.objects.order_by('-pub_date')[:5]
@@ -51,7 +55,7 @@ def results(request, question_id):
         form = ChoiceForm(request.POST or None)
         if form.is_valid():
             save_it = form.save(commit=False)
-            # save_it.author = request.user
+            print("what what")
             save_it.save()
 
         response = "You're looking at the results of question %s."
@@ -79,6 +83,8 @@ def vote(request, question_id):
             })
         else:
             selected_choice.votes += 1
+            selected_choice.user = request.user
+            print (selected_choice.user.username)
             selected_choice.save()
             # Always return an HttpResponseRedirect after successfully dealing
             # with POST data. This prevents data from being posted twice if a

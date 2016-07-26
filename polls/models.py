@@ -29,9 +29,14 @@ class Choice(models.Model):
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
     # user = models.ForeignKey(User)
+    user = models.ForeignKey(to=User, related_name="use", blank=True, null=True)
     def __str__(self):
         return self.choice_text
+
 
 #User profile
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
+
+
+# user = models.ForeignKey(User, on_delete=models.CASCADE)
