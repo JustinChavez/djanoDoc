@@ -1,5 +1,4 @@
 # Create your views here
-
 from django.shortcuts import get_object_or_404, render, redirect, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
@@ -15,10 +14,8 @@ from django.contrib.auth import logout
 from django.template import RequestContext
 from django.contrib import messages
 
-
 # Justin 2016/07/15:
 # Now using message framework to relay messages to the user. Check messages.error lines to see it in action
-
 
 #index request with render function. There is no longer a need to have a line to get
 #the template. The second argument of render handles that for us.
@@ -48,22 +45,28 @@ def detail(request, question_id):
         messages.error(request, 'ERROR: Need to login first')
         return HttpResponseRedirect('/polls/login/')
 
+
 #jonathan's edits
 def results(request, question_id):
     if request.user.is_authenticated():
         form = ChoiceForm(request.POST or None)
         if form.is_valid():
             save_it = form.save(commit=False)
+            # save_it.author = request.user
             save_it.save()
 
         response = "You're looking at the results of question %s."
-        return HttpResponse(response % question_id)
+        # return HttpResponse(response % question_id)
+        question = get_object_or_404(Question, pk=question_id)
+        return render(request, 'polls/results.html', {'question': question})
 
-        #question = get_object_or_404(Question, pk=question_id)
-        #return render(request, 'polls/results.html', {'question': question})
+        # return HttpResponseRedirect('/polls/results/')
+        # return render(request, 'polls/results.html')
+
     else:
         messages.error(request, 'ERROR: Need to login first')
         return HttpResponseRedirect('/polls/login/')
+
 
 def vote(request, question_id):
     if request.user.is_authenticated():
@@ -96,33 +99,6 @@ def dashboard(request):
 
     else:
         return render(request, 'polls/login.html', {'error_message': 'Need to login first'})
-
-# def register(request):
-#     form = UserForm(request.POST or None)
-#     if form.is_valid():
-#         user = form.save(commit=False)
-#         username = form.cleaned_data['username']
-#         password = form.cleaned_data['password']
-#        #adds the password and then save it
-#         user.set_password(password)
-#         user.save()
-#         print ("testing")
-#         #takes user and pass and see if it exists in database
-#         user = authenticate(username=username, password=password)
-#         #this is from above has return it
-#         if user is not None:
-#             #see if the account is not banned or disable or others things
-#             if user.is_active:
-#                 #this is how you login in
-#                 login(request, user)
-#                 #redircts them to where you want them to go afeter they reigister
-#                # return redirect('polls:index')
-#                 return HttpResponse("testing")
-#     #this is puporse to redierct them to a blank form
-#     #return render(request, self.template_name, {'form':form})
-#                 #return render_to_response('polls:login', {}, context)
-#     return render_to_response('polls/register.html', {'form':form}, context_instance=
-#                                       RequestContext(request))
 
 def logins(request):
     print("0")
@@ -161,11 +137,14 @@ def register(request):
         if user is not None:
             login(request, user)
             users = UserProfile.objects.filter(user=request.user)
-            return render(request, 'polls/index.html', {'users':users})
+            #TODO what is the user doing and do we need it
+            # return HttpResponseRedirect(request, 'polls/', {'users':users})
+            return HttpResponseRedirect('/polls')
     context = {
             "form":form,
     }
     return render(request, 'polls/register.html', context)
+
 
 def logout_user(request):
     logout(request)
@@ -173,4 +152,4 @@ def logout_user(request):
     # context = {
     #     "form":form,
     # }
-    return HttpResponseRedirect('/polls/login/')
+    return HttpResponseRedirect('/polls')

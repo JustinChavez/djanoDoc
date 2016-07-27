@@ -1,0 +1,24 @@
+{% extends 'polls/main.html' %}
+<html>
+    <head>
+        <title>Register</title>
+    </head>
+
+    <body>
+        {% block content %}
+        <h1>Register</h1>
+
+        <form method="POST" action="">
+            {% csrf_token %}
+                Username: <br>
+            <input type="text" name="username">
+            <br>
+            Password: <br>
+            <input type="text" name="password">
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+        Already have an account? <a href="{% url 'polls:login' %}"> Click here </a>to log in
+        {% endblock %}
+    </body>
+</html>
