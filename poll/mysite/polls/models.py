@@ -25,7 +25,7 @@ class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
-    # user = models.ForeignKey(User)
+    user = models.ForeignKey(to=User, related_name="use", blank=True, null=True)
     def __str__(self):
         return self.choice_text
 

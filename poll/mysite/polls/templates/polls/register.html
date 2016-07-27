@@ -6,19 +6,34 @@
 
     <body>
         {% block content %}
-        <h1>Register</h1>
+        {% load staticfiles %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
 
-        <form method="POST" action="">
-            {% csrf_token %}
-                Username: <br>
-            <input type="text" name="username">
-            <br>
-            Password: <br>
-            <input type="text" name="password">
-            <br>
-            <input type="submit" value="Submit">
-        </form>
-        Already have an account? <a href="{% url 'polls:login' %}"> Click here </a>to log in
-        {% endblock %}
+        <div class="container">
+            <div class="form-login">
+
+                <h4>Register</h4>
+
+                <form method="POST" action="">
+                    {% csrf_token %}
+                        Username: <br>
+                    <input type="text" name="username">
+                    <br>
+                    Password: <br>
+                    <input type="password" name="password">
+                    <br>
+                    <div class="wrapper">
+                        <br>
+                        <input type="submit" value="Submit">
+                    </div>
+                </form>
+                <div class="bottom">
+                Already have an account? <a href="{% url 'polls:login' %}"> Click here </a>to log in
+                </div>
+            </div>
+        </div>
+
+
+                {% endblock %}
     </body>
 </html>

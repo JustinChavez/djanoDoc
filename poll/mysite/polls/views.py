@@ -45,6 +45,7 @@ def detail(request, question_id):
         messages.error(request, 'ERROR: Need to login first')
         return HttpResponseRedirect('/polls/login/')
 
+
 #jonathan's edits
 def results(request, question_id):
     if request.user.is_authenticated():
@@ -55,13 +56,17 @@ def results(request, question_id):
             save_it.save()
 
         response = "You're looking at the results of question %s."
-        return HttpResponse(response % question_id)
-            #question = get_object_or_404(Question, pk=question_id)
-            # return render(request, 'polls/results.html', {'question': question})
+        # return HttpResponse(response % question_id)
+        question = get_object_or_404(Question, pk=question_id)
+        return render(request, 'polls/results.html', {'question': question})
+
+        # return HttpResponseRedirect('/polls/results/')
+        # return render(request, 'polls/results.html')
 
     else:
         messages.error(request, 'ERROR: Need to login first')
         return HttpResponseRedirect('/polls/login/')
+
 
 def vote(request, question_id):
     if request.user.is_authenticated():
@@ -132,11 +137,14 @@ def register(request):
         if user is not None:
             login(request, user)
             users = UserProfile.objects.filter(user=request.user)
-            return render(request, 'polls/index.html', {'users':users})
+            #TODO what is the user doing and do we need it
+            # return HttpResponseRedirect(request, 'polls/', {'users':users})
+            return HttpResponseRedirect('/polls')
     context = {
             "form":form,
     }
     return render(request, 'polls/register.html', context)
+
 
 def logout_user(request):
     logout(request)
@@ -144,4 +152,4 @@ def logout_user(request):
     # context = {
     #     "form":form,
     # }
-    return HttpResponseRedirect('/polls/login/')
+    return HttpResponseRedirect('/polls')
