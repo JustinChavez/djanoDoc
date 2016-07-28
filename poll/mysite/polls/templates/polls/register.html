@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Register</title>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     </head>
 
     <body>
@@ -22,10 +23,13 @@
                     Password: <br>
                     <input type="password" name="password">
                     <br>
+
                     <div class="wrapper">
+                        {{ form.as_p }}
                         <br>
                         <input type="submit" value="Submit">
                     </div>
+
                 </form>
                 <div class="bottom">
                 Already have an account? <a href="{% url 'polls:login' %}"> Click here </a>to log in

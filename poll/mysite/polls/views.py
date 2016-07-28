@@ -25,7 +25,7 @@ def index(request):
         context = {'latest_question_list': latest_question_list}
         return render(request, 'polls/index.html', context)
     else:
-        messages.error(request, 'ERROR: Need to login first')
+        messages.error(request, 'Login to view the page.')
         return HttpResponseRedirect('/polls/login/')
 
 def detail(request, question_id):
@@ -42,7 +42,7 @@ def detail(request, question_id):
         question = get_object_or_404(Question, pk=question_id)
         return render(request, 'polls/detail.html', {'question': question})
     else:
-        messages.error(request, 'ERROR: Need to login first')
+        messages.error(request, 'Login to view the page.')
         return HttpResponseRedirect('/polls/login/')
 
 
@@ -64,7 +64,7 @@ def results(request, question_id):
         # return render(request, 'polls/results.html')
 
     else:
-        messages.error(request, 'ERROR: Need to login first')
+        messages.error(request, 'Login to view the page.')
         return HttpResponseRedirect('/polls/login/')
 
 
@@ -81,13 +81,14 @@ def vote(request, question_id):
             })
         else:
             selected_choice.votes += 1
+            selected_choice.user = request.user
             selected_choice.save()
             # Always return an HttpResponseRedirect after successfully dealing
             # with POST data. This prevents data from being posted twice if a
             # user hits the Back button.
             return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
     else:
-        return render(request, 'polls/login.html', {'error_message': 'Need to login first'})
+        return render(request, 'polls/login.html', {'error_message': 'Login to view the page.'})
 
 def dashboard(request):
     if request.user.is_authenticated():
@@ -98,7 +99,7 @@ def dashboard(request):
         return render(request, 'polls/main.html', context)
 
     else:
-        return render(request, 'polls/login.html', {'error_message': 'Need to login first'})
+        return render(request, 'polls/login.html', {'error_message': 'Login to view the page.'})
 
 def logins(request):
     print("0")

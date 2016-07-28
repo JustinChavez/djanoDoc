@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'nocaptcha_recaptcha',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -143,3 +144,8 @@ STATICFILES_DIRS = (
 
 #was told to put this in here
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+NORECAPTCHA_SITE_KEY = '6LdZLCYTAAAAAN5GWcSIRYPfJX30oJCD8tdF1LfL'
+NORECAPTCHA_SECRET_KEY = '6LdZLCYTAAAAAFHrQr2Keu5D0WHShzBfsP6F-Jz7'
+
+
