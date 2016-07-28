@@ -1,12 +1,24 @@
 {% extends 'polls/main.html' %}
 <html>
     <head>
+       {% block head %}
         <title>Register</title>
-    <script src='https://www.google.com/recaptcha/api.js'></script>
+        <style>
+    .capatcha {
+        text-align: center;
+    }
+
+    .g-recaptcha {
+        display: inline-block;
+    }
+</style>
+        {% endblock %}
     </head>
 
     <body>
         {% block content %}
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
         {% load staticfiles %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
 
@@ -17,15 +29,18 @@
 
                 <form method="POST" action="">
                     {% csrf_token %}
-                        Username: <br>
-                    <input type="text" name="username">
-                    <br>
-                    Password: <br>
-                    <input type="password" name="password">
-                    <br>
+                        <!--Username: <br>-->
+                    <!--<input type="text" name="username">-->
+                    <!--<br>-->
+                    <!--Password: <br>-->
+                    <!--<input type="password" name="password">-->
+                    <!--<br>-->
+                    <!--<div class="g-recaptcha" data-sitekey="6LdZLCYTAAAAAN5GWcSIRYPfJX30oJCD8tdF1LfL"></div>-->
+                    <div class="capatcha">
+                    {{ form.as_p }}
+                        </div>
 
                     <div class="wrapper">
-                        {{ form.as_p }}
                         <br>
                         <input type="submit" value="Submit">
                     </div>

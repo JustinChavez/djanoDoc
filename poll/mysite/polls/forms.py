@@ -1,6 +1,7 @@
 from django import forms
-from django.contrib.auth.models import User
 from nocaptcha_recaptcha.fields import NoReCaptchaField
+
+from django.contrib.auth.models import User
 from .models import Choice
 
 class ChoiceForm(forms.ModelForm):
@@ -9,9 +10,16 @@ class ChoiceForm(forms.ModelForm):
         fields = '__all__'
 
 class UserForm(forms.ModelForm):
+    captcha = NoReCaptchaField()
     password = forms.CharField(widget=forms.PasswordInput)
-    captcha = NoReCaptchaField
+    username = forms.CharField()
+
 
     class Meta:
         model = User
         fields = ['username', 'password']
+
+
+
+
+

@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
+
 <head>
-    <title>Title</title>
+    {% block head %}
+    {% endblock %}
   {% load staticfiles %}
   {% include 'polls/css.html' %}
+  <link rel="shortcut icon" href="{% static 'images/HackerPack.png' %}"/>
   <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
 </head>
 <body>
