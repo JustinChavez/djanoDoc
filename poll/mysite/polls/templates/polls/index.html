@@ -1,4 +1,10 @@
 {% extends 'polls/main.html' %}
+<head>
+    {% block head %}
+    <title>Index</title>
+    {% endblock %}
+</head>
+
 
 {#for some reason I could not display anything that was not included within the jumbotron#}
 
@@ -9,10 +15,13 @@
   <h1>HackerPack Dashboard</h1>
   <p>Currently we are using this dashboard to allow you all to take polls to help us understand and improve
   our team dynamics</p>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
   <p>
       {#    button, no use now but we can use it later#}
 {#      <a class="btn btn-primary btn-lg" href="#" role="button">Take a poll</a></p>#}
 </div>
+
 
 
 
