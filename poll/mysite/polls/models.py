@@ -42,7 +42,7 @@ class Roast(models.Model):
     author = models.ForeignKey(User)
     # question_text = models.CharField(max_length=200)
     text = models.TextField()
-    roast_title=models.CharField(max_length=20, default='Question')
+    roast_title=models.CharField(max_length=200, default='Question')
     created_date = models.DateTimeField(
         default=timezone.now)
 

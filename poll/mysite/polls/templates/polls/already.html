@@ -1,0 +1,23 @@
+<html>
+{% extends 'polls/main.html' %}
+
+<head>
+    {% block head %}
+    <title>Already Voted</title>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+{% load staticfiles %}
+          <link rel="stylesheet" type="text/css" href="{% static 'css/alreadyvoted.css' %}">
+
+<div class="container">
+<div class="box">
+<h3>You have already voted for this question, you can only vote once no spamming</h3>
+<br>
+<h5><a href="{% url 'polls:index' %}">Go back to homepage?</a></h5>
+</div>
+</div>
+{% endblock %}
+</body>
+</html>

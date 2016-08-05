@@ -71,11 +71,12 @@ def results(request, question_id):
 
 
 def vote(request, question_id):
+    a = 1
     if request.user.is_authenticated():
        #TODO re enable no voting twice turn it off for debug
-        # if Choice.objects.filter(question_id=question_id, user_id=request.user.id).exists():
+        if Choice.objects.filter(question_id=question_id, user_id=request.user.id).exists():
         #     #TODO Make a error message for no voting twice
-        #     return HttpResponseRedirect('/polls')
+            return render(request, 'polls/already.html')
         #     # return ('error_message': "Sorry, but you have already voted.")
             # # return render(request, '/polls', {
             # #     # "qquestion": question,
@@ -83,40 +84,53 @@ def vote(request, question_id):
             # # })
 
         question = get_object_or_404(Question, pk=question_id)
-        try:
-            selected_choice = question.choice_set.get(pk=request.POST['choice'])
-        except (KeyError, Choice.DoesNotExist):
-            # Redisplay the question voting form.
-            return render(request, 'polls/detail.html', {
-                'question': question,
-                'error_message': "You didn't select a choice.",
-            })
-
-        else:
-            print ("1")
-            form2 = RoastForm(request.POST or None)
-            print ("2")
-            if form2.is_valid():
-                print ("3")
-                roast = form2.save(commit=False)
-                roast.author = request.user
-                roast.published_date = timezone.now()
-                roast.roast_title = question
-                roast.save()
-                selected_choice.votes += 1
-                selected_choice.user = request.user
-                selected_choice.save()
-            else:
+        # try:
+        #     selected_choice = question.choice_set.get(pk=request.POST['choice'])
+        # except (KeyError, Choice.DoesNotExist):
+        #     # Redisplay the question voting form.
+        #     return render(request, 'polls/detail.html', {
+        #         'a':a,
+        #         'question': question,
+        #         'error_message': "You didn't select a choice.",
+        #     })
+        #
+        # else:
+        print ("1")
+        form2 = RoastForm(request.POST or None)
+        print ("2")
+        a =2
+        if form2.is_valid():
+            print ("3")
+            try:
+                 selected_choice = question.choice_set.get(pk=request.POST['choice'])
+            except (KeyError, Choice.DoesNotExist):
+                # Redisplay the question voting form.
                 return render(request, 'polls/detail.html', {
+                    'a':a,
                     'question': question,
-                    'form2': form2,
-                    'error_message': "this is a errror message "
+                    'form2':form2,
+                    'error_message': "You didn't select a choice.",
                 })
+            roast = form2.save(commit=False)
+            roast.author = request.user
+            roast.published_date = timezone.now()
+            roast.roast_title = question
+            roast.save()
+            selected_choice.votes += 1
+            selected_choice.user = request.user
+            selected_choice.save()
+        else:
+            return render(request, 'polls/detail.html', {
+                'a':a,
+                'question': question,
+                'form2': form2,
+                # 'error_message': "this is a errror message "
+            })
 
             # Always return an HttpResponseRedirect after successfully dealing
             # with POST data. This prevents data from being posted twice if a
             # user hits the Back button.
-            return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+        return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
     else:
         return render(request, 'polls/login.html', {'error_message': 'Login to vote.'})
 
@@ -190,3 +204,6 @@ def logout_user(request):
 
 def policy(request):
     return render(request, 'polls/policy.html')
+
+def already(request):
+    return render(request, 'polls/already.html')

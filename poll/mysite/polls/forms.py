@@ -26,6 +26,10 @@ class RoastForm(forms.ModelForm):
         model = Roast
         fields = ('text',)
 
+    def __init__(self, *args, **kwargs):
+        super(RoastForm, self).__init__(*args, **kwargs)
+        self.fields['text'].error_messages = {'required': 'unforuntaley the text field is requried'}
+
 
 
 
