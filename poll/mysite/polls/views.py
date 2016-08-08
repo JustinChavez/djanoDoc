@@ -115,6 +115,7 @@ def vote(request, question_id):
             roast.author = request.user
             roast.published_date = timezone.now()
             roast.roast_title = question
+            roast.roast_choice = selected_choice
             roast.save()
             selected_choice.votes += 1
             selected_choice.user = request.user

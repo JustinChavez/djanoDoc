@@ -18,6 +18,38 @@
 <h5><a href="{% url 'polls:index' %}">Go back to homepage?</a></h5>
 </div>
 </div>
+
+
+<input id="pokeball" name="ball" type="radio" value="poke-ball" checked>
+<input id="greatball" name="ball" type="radio" value="great-ball">
+<input id="ultraball" name="ball" type="radio" value="ultra-ball">
+<input id="masterball" name="ball" type="radio" value="master-ball">
+<input id="loveball" name="ball" type="radio" value="love-ball">
+<input id="premierball" name="ball" type="radio" value="premier-ball">
+<input id="levelball" name="ball" type="radio" value="level-ball">
+
+<div class="poke-ball">
+  <div class="border">
+    <div class="inner"></div>
+  </div>
+  <div class="ball">
+    <div class="extras"></div>
+    <div class="moar-extras"></div>
+    <div class="even-moar-extras"></div>
+  </div>
+  <div class="shadow"></div>
+</div>
+
+<div class="toggle">
+  <label class="active" for="pokeball">Poké Ball</label>
+  <label for="greatball">Great Ball</label>
+  <label for="ultraball">Ultra Ball</label>
+  <label for="masterball">Master Ball</label>
+  <label for="loveball">Love Ball</label>
+  <label for="premierball">Premier Ball</label>
+  <label for="levelball">Level Ball</label>
+</div>
+
 {% endblock %}
 </body>
 </html>

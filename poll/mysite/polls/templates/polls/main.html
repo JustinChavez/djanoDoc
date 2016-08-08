@@ -33,6 +33,7 @@
         {% if request.user.is_authenticated %}
         <li><a>Hi, {{ request.user.username }}</a></li>
         <li><a href="{% url 'polls:logout_user' %}">Logout</a></li>
+        {% else %} <li><a href=" {% url 'polls:login' %}">Login</a></li>
         {% endif %}
         <!--<li><a href="#">testing</a></li>-->
         <li class="dropdown">

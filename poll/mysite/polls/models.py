@@ -43,6 +43,7 @@ class Roast(models.Model):
     # question_text = models.CharField(max_length=200)
     text = models.TextField()
     roast_title=models.CharField(max_length=200, default='Question')
+    roast_choice=models.CharField(max_length=200, default='Choice')
     created_date = models.DateTimeField(
         default=timezone.now)
 
