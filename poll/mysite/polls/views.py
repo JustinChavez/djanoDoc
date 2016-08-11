@@ -74,9 +74,9 @@ def vote(request, question_id):
     a = 1
     if request.user.is_authenticated():
        #TODO re enable no voting twice turn it off for debug
-        if Choice.objects.filter(question_id=question_id, user_id=request.user.id).exists():
+        # if Choice.objects.filter(question_id=question_id, user_id=request.user.id).exists():
         #     #TODO Make a error message for no voting twice
-            return render(request, 'polls/already.html')
+        #     return render(request, 'polls/already.html')
         #     # return ('error_message': "Sorry, but you have already voted.")
             # # return render(request, '/polls', {
             # #     # "qquestion": question,
@@ -192,6 +192,7 @@ def register(request):
             "form":form,
     }
     return render(request, 'polls/register.html', context)
+#     return render_to_response("polls/register.html", {'form': form,}, context_instance=RequestContext(request))
 
 
 def logout_user(request):
@@ -208,3 +209,11 @@ def policy(request):
 
 def already(request):
     return render(request, 'polls/already.html')
+
+def profile(request):
+    if request.user.is_authenticated():
+
+        return render(request, 'polls/profile.html')
+    else:
+        messages.error(request, 'Login to view the page.')
+        return HttpResponseRedirect('/polls/login/')

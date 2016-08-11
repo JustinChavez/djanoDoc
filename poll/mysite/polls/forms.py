@@ -11,13 +11,14 @@ class ChoiceForm(forms.ModelForm):
         fields = '__all__'
 
 class UserForm(forms.ModelForm):
+    email = forms.CharField()
     captcha = NoReCaptchaField()
     password = forms.CharField(widget=forms.PasswordInput)
     username = forms.CharField()
 
     class Meta:
         model = User
-        fields = ['username', 'password']
+        fields = ['username', 'password','email']
 
 
 class RoastForm(forms.ModelForm):

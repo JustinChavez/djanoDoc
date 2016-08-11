@@ -1,0 +1,28 @@
+.container {
+     padding: 2px;
+     position: center;
+}
+
+.form {
+     background-color: #EDEDED;
+     padding-top: 10px;
+     padding-bottom: 20px;
+     padding-left: 20px;
+     padding-right: 20px;
+     border-radius: 100px;
+     border-color:#d2d2d2;
+     border-width: 5px;
+     border-spacing: 10px;
+     box-shadow:0 1px 0 #cfcfcf;
+     text-align: center;
+}
+
+h3 {
+ border:0 solid #fff;
+ border-bottom-width:1px;
+ padding-bottom:10px;
+ text-align: center;
+}
+ ul{
+ list-style-type: none;
+ }

@@ -47,7 +47,7 @@ class Roast(models.Model):
     created_date = models.DateTimeField(
         default=timezone.now)
 
-    # #Not complatiilbe with python 3 may be bad in the future
+    # #Not complatiilbe with python 3 may be bad  in the future
     # def __unicode__(self):
     #     return self.author + ' - ' + self.roast_title
 # #

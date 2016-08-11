@@ -1,0 +1,26 @@
+{% extends 'polls/main.html' %}
+<html>
+<head>
+    {% block head %}
+    {% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+    <title>Profile</title>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+<div class="container">
+<div class="circle">
+    {% if request.user.is_authenticated %}
+<h1>Welcome to your profile {{ request.user.username }}</h1>
+<p>Your username is {{ request.user.username }}</p>
+{% endif %}
+{% if request.user.email %}
+<p>Your email is {{ request.user.email }}</p>
+{% else %} <p>You don't have a email address</p>
+{% endif %}
+</div>
+</div>
+{% endblock %}
+</body>
+</html>

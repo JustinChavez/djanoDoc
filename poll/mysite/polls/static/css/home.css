@@ -1,0 +1,18 @@
+/*li.list-group-item {*/
+    /*display: inline-block;*/
+/*}*/
+
+/*}*/
+
+/*ul.list-group {*/
+    /*color: #5b80b2;*/
+/*}*/
+
+.list-group li:hover {
+background:#eeeeee  !important;
+}
+
+.list-group li a
+{ margin: auto; display: block; width: 100%; height: 100%; }
+
+/*.list-group li { padding: 0; }*/

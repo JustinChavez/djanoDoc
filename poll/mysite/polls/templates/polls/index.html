@@ -9,6 +9,8 @@
 {#for some reason I could not display anything that was not included within the jumbotron#}
 
 {% block content %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 
 {#Jumbotron for frontpage information#}
 <div class="jumbotron">
@@ -30,10 +32,13 @@
         <ul class="list-group">
     <link rel="stylesheet" type="text/css" href="../../static/css/polls.css">
         {% for question in latest_question_list %}
-            <li class="list-group-item"><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+            <a href="{% url 'polls:detail' question.id %}"><li class="list-group-item">{{ question.question_text }}</li></a>
         {% endfor %}
         </ul>
     {% else %}
         <p>No polls are available.</p>
     {% endif %}
 {% endblock %}
+
+
+            <!--<li class="list-group-item"><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>-->

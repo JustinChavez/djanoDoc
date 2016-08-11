@@ -24,6 +24,8 @@ urlpatterns = [
     url(r'^policy/$', views.policy, name='policy'),
     #already voted page
     url(r'^already/$', views.already, name='already'),
+    #profile
+    url(r'^profile/$', views.profile, name='profile'),
 
 ]
 

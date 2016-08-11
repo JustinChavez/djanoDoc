@@ -1,6 +1,5 @@
-<!DOCTYPE html>
 {% extends 'polls/main.html' %}
-<html lang="en">
+<html>
 <head>
     {% block head %}
     <title>Results</title>
@@ -8,7 +7,12 @@
 </head>
 <body>
 {% block content %}
-<h1>{{ question.question_text }}</h1>
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/result.css' %}">
+
+<div class="container">
+<div class="form">
+<h3>{{ question.question_text }} results</h3>
 
 <ul>
 {% for choice in question.choice_set.all %}
@@ -17,6 +21,9 @@
 </ul>
 
 <!--<a href="{% url 'polls:detail' question.id %}">Vote again?</a>-->
+</div>
+</div>
+
 {% endblock %}
 </body>
 </html>

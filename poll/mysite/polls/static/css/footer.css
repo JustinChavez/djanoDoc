@@ -31,6 +31,7 @@
   /* Set the fixed height of the footer here */
   height: 60px;
   background-color: #f5f5f5;
+  overflow: auto
 }
 
 .container2 {
@@ -38,5 +39,16 @@
       float: left;
       text-align: center;
   padding: 10px;
+}
 
+.line {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.line li {
+    display: inline;
+    padding: 25px;
+    /*margin-top: 10px;*/
 }

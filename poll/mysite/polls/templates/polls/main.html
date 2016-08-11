@@ -31,21 +31,23 @@
       <ul class="nav navbar-nav navbar-right">
       <!--Gets user name and logouts if they are user -->
         {% if request.user.is_authenticated %}
-        <li><a>Hi, {{ request.user.username }}</a></li>
+        <li><a href="{% url 'polls:profile' %}">Hi, {{ request.user.username }}</a></li>
         <li><a href="{% url 'polls:logout_user' %}">Logout</a></li>
         {% else %} <li><a href=" {% url 'polls:login' %}">Login</a></li>
         {% endif %}
         <!--<li><a href="#">testing</a></li>-->
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
-        </li>
+       <!--Code for the dropdown don't need it so took it out-->
+        <!--<li class="dropdown">-->
+          <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
+          <!--<ul class="dropdown-menu">-->
+            <!--<li><a href="#">Action</a></li>-->
+            <!--<li><a href="#">Another action</a></li>-->
+            <!--<li><a href="#">Something else here</a></li>-->
+            <!--<li role="separator" class="divider"></li>-->
+            <!--<li><a href="#">Separated link</a></li>-->
+          <!--</ul>-->
+        <!--</li>-->
+
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -65,8 +67,12 @@
 
 <footer class="footer">
   <div class="container2">
-    <p class="text-muted"><a href="{% url 'polls:policy' %}">Private Policy</a></p>
+  <ul div class="line">
+    <li>HackerPack Dashboard </li>
+    <li>© Copyright 2016 </li>
+    <li><a href="{% url 'polls:policy' %}">Private Policy</a></li>
     <!--<p ><a href="{% url 'polls:policy' %}">Private Policy</a></p>-->
+  </ul>
   </div>
 </footer>
 
