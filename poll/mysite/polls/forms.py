@@ -29,8 +29,21 @@ class RoastForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(RoastForm, self).__init__(*args, **kwargs)
-        self.fields['text'].error_messages = {'required': 'unforuntaley the text field is requried'}
+        self.fields['text'].error_messages = {'required': 'text field is requried'}
 
+
+class ContactForm(forms.Form):
+
+    from_email = forms.EmailField(required=True)
+    subject = forms.CharField(required=True)
+    message = forms.CharField(widget=forms.Textarea)
+
+    # # the new bit we're adding
+    # def __init__(self, *args, **kwargs):
+    #     super(ContactForm, self).__init__(*args, **kwargs)
+    #     self.fields['from_email'].label = "Your name:"
+    #     self.fields['subject'].label = "Your email:"
+    #     self.fields['message'].label = "What do you want to say?"
 
 
 

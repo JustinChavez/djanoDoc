@@ -4,16 +4,18 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.views import generic
 from django.http import Http404
-from .models import Question
+from .models import Question, Voter
 from django.template import loader
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .forms import ChoiceForm, UserForm, RoastForm
+from .forms import ChoiceForm, UserForm, RoastForm, ContactForm
 from .models import Choice, UserProfile
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.template import RequestContext
 from django.contrib import messages
 from django.utils import timezone
+from django.core.mail import send_mail, BadHeaderError
+
 
 
 # Justin 2016/07/15:
@@ -69,14 +71,15 @@ def results(request, question_id):
         messages.error(request, 'Login to view the page.')
         return HttpResponseRedirect('/polls/login/')
 
-
+#         # if Choice.objects.filter(question_id=question_id, user_id=request.user.id).exists():
 def vote(request, question_id):
     a = 1
     if request.user.is_authenticated():
        #TODO re enable no voting twice turn it off for debug
-        # if Choice.objects.filter(question_id=question_id, user_id=request.user.id).exists():
+        if Voter.objects.filter(poll_id=question_id, user_id=request.user.id).exists():
         #     #TODO Make a error message for no voting twice
-        #     return render(request, 'polls/already.html')
+            print ("1000000")
+            return render(request, 'polls/already.html')
         #     # return ('error_message': "Sorry, but you have already voted.")
             # # return render(request, '/polls', {
             # #     # "qquestion": question,
@@ -119,6 +122,8 @@ def vote(request, question_id):
             roast.save()
             selected_choice.votes += 1
             selected_choice.user = request.user
+            v = Voter(user=request.user, poll=question)
+            v.save()
             selected_choice.save()
         else:
             return render(request, 'polls/detail.html', {
@@ -217,3 +222,21 @@ def profile(request):
     else:
         messages.error(request, 'Login to view the page.')
         return HttpResponseRedirect('/polls/login/')
+
+
+def email(request):
+    form = ContactForm(request.POST or None)
+    if form.is_valid():
+        subject = form.cleaned_data['subject']
+        from_email = form.cleaned_data['from_email']
+        message = form.cleaned_data['message']
+        try:
+            send_mail(subject, message, from_email, ['jchuvez2017@gmail.com'])
+        except BadHeaderError:
+            return HttpResponse('Invalid header found')
+        return render(request, 'polls/policy.html')
+    return render(request, 'polls/email.html', {'from':form})
+
+
+def thanks(request):
+    return render(request, 'polls/profile.html')

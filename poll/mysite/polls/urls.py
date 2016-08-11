@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^already/$', views.already, name='already'),
     #profile
     url(r'^profile/$', views.profile, name='profile'),
+    url(r'^email/$', views.email, name='email'),
+    url(r'^thanks/$', views.thanks, name='thanks'),
 
 ]
 

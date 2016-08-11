@@ -63,3 +63,10 @@ class Roast(models.Model):
 # User profile
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
+
+class Voter(models.Model):
+    user = models.ForeignKey(User)
+    poll = models.ForeignKey(Question)
+
+
+# TODO cant change infomration in about page right now i commented that out in the private policy
